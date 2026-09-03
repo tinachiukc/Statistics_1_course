@@ -1,1 +1,36 @@
-<!doctype html><html><head><meta charset="utf-8"><title>播放投影片</title><style>html,body,iframe{width:100%;height:100%;margin:0;border:0}</style></head><body><iframe id="v" allowfullscreen></iframe><script>const f=new URLSearchParams(location.search).get("file");const u=new URL("materials/"+f,location.href).href;document.getElementById("v").src="https://view.officeapps.live.com/op/embed.aspx?src="+encodeURIComponent(u);</script></body></html>
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>播放投影片｜統計學（一）</title>
+<style>
+body{margin:0;font-family:"Microsoft JhengHei",sans-serif;background:#f6f9fc;color:#102238}
+main{max-width:720px;margin:12vh auto;padding:32px;background:#fff;border:1px solid #cbdced;border-radius:14px;text-align:center}
+h1{font-size:28px;margin:0 0 14px}.msg{color:#536b84;line-height:1.8}.fallback{margin-top:24px}.btn{display:inline-block;padding:11px 18px;border-radius:9px;background:#0563d8;color:#fff;text-decoration:none;margin:6px}
+.small{font-size:14px;color:#708196;margin-top:20px}
+</style>
+</head>
+<body>
+<main>
+<h1>正在開啟線上投影片…</h1>
+<p class="msg">系統將以 Microsoft Office 線上檢視器開啟 PPTX。</p>
+<div class="fallback" id="fallback" hidden>
+<p>若瀏覽器沒有自動前往，請按下方按鈕。</p>
+<a class="btn" id="openOffice" target="_self">開啟線上投影片</a>
+</div>
+<p class="small">請稍候；教材檔案由本課程 GitHub Pages 公開網址提供。</p>
+</main>
+<script>
+const f=new URLSearchParams(location.search).get('file');
+if(!f){document.querySelector('h1').textContent='找不到投影片檔名';document.querySelector('.msg').textContent='請返回課程週次頁重新開啟主要教材';}
+else{
+  const pptUrl=new URL('materials/'+f,location.href).href;
+  const officeUrl='https://view.officeapps.live.com/op/view.aspx?src='+encodeURIComponent(pptUrl);
+  document.getElementById('openOffice').href=officeUrl;
+  document.getElementById('fallback').hidden=false;
+  setTimeout(()=>location.replace(officeUrl),350);
+}
+</script>
+</body>
+</html>
